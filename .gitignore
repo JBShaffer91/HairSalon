@@ -1,0 +1,97 @@
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+*.nuget.props
+*.nuget.targets
+
+# Microsoft Azure Build Output
+csx/
+*.build.csdef
+*.Publish.xml
+*.ServiceDefinition.csdef
+
+# Roslyn cache directories
+*.ide/
+
+# Visual Studio cache directory
+.vs/
+
+# Uncomment if you have tasks that create the project's static files in wwwroot
+#wwwroot/
+
+# MSTest test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# NUnit
+*.VisualState.xml
+TestResult.xml
+
+# Build Results of an ATL Project
+[Dd]ebugPS/
+[Rr]eleasePS/
+dlldata.c
+
+# DNX
+project.json~*
+*.kproj.user
+
+# Include Visual Studio files
+*.csproj
+*.sln
+*.suo
+
+# Ignore all bin and obj folders
+**/bin
+**/obj
+
+# Ignore specific files
+# Comment the next line if you want to checkin your web deploy settings
+# but remember to never check in your Azure publish settings.json file if it has a password in it
+*.pubxml
+
+# Ignore NuGet Packages
+*.nupkg
+# The packages folder can be ignored because of Package Restore
+**/[Pp]ackages/*
+# except build/, which is used as an MSBuild target.
+!**/[Pp]ackages/build/
+# Uncomment if necessary however generally it will be regenerated when needed
+#!**/[Pp]ackages/repositories.config
+
+# Visual Studio 2015 cache/options directory
+.vs/
+# Uncomment if you have tasks that create the project's static files in wwwroot
+#wwwroot/
+
+# Visual Studio 2017 & .NET Core specific
+**/.vs
+project.vspscc
+*.jfm
+node_modules/
+**/wwwroot/dist/
+**/wwwroot/lib/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Ignore .env file for secrets
+.env
+
+# Ignore local development appsettings file
+appsettings.Development.json
+
+# Ignore Visual Studio Code settings
+.vscode/
+
+# Ignore Rider IDE settings
+.idea/
+
+# Ignore performance reports
+speedscope.json
+
+# Ignore database migrations
+**/Migrations/
+
+# Ignore secrets file
+appsettings.json
