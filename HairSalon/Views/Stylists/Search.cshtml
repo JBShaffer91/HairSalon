@@ -1,0 +1,13 @@
+@{
+  ViewBag.Title = "Search Stylists";
+}
+
+<h2>Search Stylists</h2>
+
+<form asp-action="SearchResults" method="post">
+  <div class="form-group">
+    <label for="Name">Stylist Name:</label>
+    <input type="text" class="form-control" id="Name" name="Name">
+  </div>
+  <button type="submit" class="btn btn-primary">Search</button>
+</form>
