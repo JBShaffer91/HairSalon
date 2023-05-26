@@ -1,0 +1,8 @@
+@model HairSalon.Models.Client
+
+<h2>@Model.Name Details</h2>
+
+<p>Stylist: @ViewBag.StylistName</p>
+
+<a href="/Clients/Edit/@Model.ClientId">Edit</a>
+<a href="/Clients/Delete/@Model.ClientId">Delete</a>

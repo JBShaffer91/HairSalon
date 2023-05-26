@@ -1,0 +1,8 @@
+<h2>Client List</h2>
+
+@foreach(var client in Model)
+{
+  <p>
+    <a href="/Clients/Details/@client.ClientId">@client.Name</a>
+  </p>
+}

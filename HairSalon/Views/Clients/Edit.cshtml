@@ -1,0 +1,21 @@
+@model HairSalon.Models.Client
+
+<h2>Edit @Model.Name</h2>
+
+<form method="post" action="/Clients/Edit">
+  <input type="hidden" name="ClientId" value="@Model.ClientId" />
+  <div class="form-group">
+    <label for="Name">Name</label>
+    <input class="form-control" id="Name" name="Name" type="text" value="@Model.Name" />
+  </div>
+  <div class="form-group">
+    <label for="StylistId">Stylist</label>
+    <select class="form-control" id="StylistId" name="StylistId">
+      @foreach(var stylist in ViewBag.Stylists)
+        {
+          <option value="@stylist.StylistId" @(Model.StylistId == stylist.StylistId ? "selected" : "")>@stylist.Name</option>
+        }
+      </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
