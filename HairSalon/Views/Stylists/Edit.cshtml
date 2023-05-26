@@ -1,0 +1,16 @@
+@model HairSalon.Models.Stylist
+
+<h2>Edit Stylist</h2>
+
+<form asp-action="Edit">
+  <input type="hidden" asp-for="StylistId" />
+  <div class="form-group">
+    <label asp-for="Name"></label>
+    <input class="form-control" asp-for="Name" />
+  </div>
+  <div class="form-group">
+    <label asp-for="Specialty"></label>
+    <input class="form-control" asp-for="Specialty" />
+  </div>
+  <button type="submit" class="btn btn-primary">Update</button>
+</form>

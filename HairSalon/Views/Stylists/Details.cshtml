@@ -1,0 +1,11 @@
+@model HairSalon.Models.Stylist
+
+<h2>@Model.Name</h2>
+<p>Specialty: @Model.Specialty</p>
+
+<h3>Clients:</h3>
+
+@foreach(var client in Model.Clients)
+{
+  <p><a asp-action="Details" asp-controller="Clients" asp-route-id="@client.ClientId">@client.Name</a></p>
+}

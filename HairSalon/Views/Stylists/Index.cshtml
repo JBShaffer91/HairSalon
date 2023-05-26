@@ -1,0 +1,10 @@
+@model IEnumerable<HairSalon.Models.Stylist>
+
+<h2>All Stylists</h2>
+
+@foreach (var stylist in Model)
+{
+  <h3><a asp-action="Details" asp-route-id="@stylist.StylistId">@stylist.Name</a></h3>
+  <p>Specialty: @stylist.Specialty</p>
+  <hr />
+}
