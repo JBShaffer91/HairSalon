@@ -1,10 +1,10 @@
-using HairSalon.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using HairSalon.Models;
 
 namespace HairSalon
 {
@@ -13,13 +13,12 @@ namespace HairSalon
     public Startup(IWebHostEnvironment env)
     {
       var builder = new ConfigurationBuilder()
-      .SetBasePath(env.ContentRootPath)
-      .AddEnvironmentVariables();
-      builder.AddUserSecrets<Startup>();
-      Configuration = builder.Build();
+        .SetBasePath(env.ContentRootPath)
+        .AddJsonFile("appsettings.json"); // includes connection string
+        Configuration = builder.Build();
     }
 
-    public IConfiguration Configuration { get; }
+    public IConfigurationRoot Configuration { get; }
 
     public void ConfigureServices(IServiceCollection services)
     {
@@ -30,9 +29,21 @@ namespace HairSalon
       .UseMySql(Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:DefaultConnection"])));
     }
 
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    public void Configure(IApplicationBuilder app)
     {
-    // other code goes here
-    }
+      app.UseDeveloperExceptionPage();
+
+      app.UseRouting();
+
+      app.UseEndpoints(routes =>
+        {
+          routes.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+        });
+
+        app.Run(async (context) =>
+          {
+            await context.Response.WriteAsync("Hello World!");
+          });
+      }
   }
 }
