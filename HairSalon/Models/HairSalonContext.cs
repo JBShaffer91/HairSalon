@@ -9,8 +9,8 @@ namespace HairSalon.Models
     {
     }
 
-    public DbSet<Stylist> Stylists { get; set; } = new DbSet<Stylist>();
-    public DbSet<Client> Clients { get; set; } = new DbSet<Client>();
+    public virtual DbSet<Stylist>? Stylists { get; set; } 
+    public virtual DbSet<Client>? Clients { get; set; } 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
