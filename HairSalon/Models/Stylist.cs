@@ -15,6 +15,6 @@ namespace HairSalon.Models
     public string Name { get; set; }
     public string Specialty { get; set; }
 
-    public virtual ICollection<Client> Clients { get; set; }
+    public ICollection<Client> Clients { get; set; } = new List<Client>();
   }
 }

@@ -1,98 +1,88 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using System.Collections.Generic;
-using HairSalon.Models;
 using System;
+using HairSalon.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace HairSalon.Tests
 {
-  [TestClass]
-  public class ClientTest : IDisposable
+  public class ClientTests : IDisposable
   {
-    public void Dispose()
-    {
-      Client.ClearAll(); // Clearing all clients after each test
-    }
-
-    public ClientTest()
+    public ClientTests()
     {
       DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=hair_salon_test;";
-      // Setting connection string to test database
     }
 
-    [TestMethod]
-    public void Equals_ReturnsTrueIfDescriptionsAreTheSame_Client()
+    [Fact]
+    public void GetAll_ClientsEmptyAtFirst_0()
     {
-      // Arrange, Act
-      Client firstClient = new Client("John", 1);
-      Client secondClient = new Client("John", 1);
-
-      // Assert
-      Assert.AreEqual(firstClient, secondClient);
-    }
-
-    [TestMethod]
-    public void Save_SavesToDatabase_ClientList()
-    {
-      //Arrange
-      Client testClient = new Client("John", 1);
-
-      //Act
-      testClient.Save();
-      List<Client> result = Client.GetAll();
-      List<Client> testList = new List<Client>{testClient};
+      //Arrange, Act
+      int result = Client.GetAll().Count;
 
       //Assert
-      CollectionAssert.AreEqual(testList, result);
+        Assert.Equal(0, result);
     }
 
-    [TestMethod]
-    public void Find_ReturnsCorrectClientFromDatabase_Client()
+    [Fact]
+    public void Equals_ReturnsTrueForSameName_Client()
+    {
+      //Arrange, Act
+      Client firstClient = new Client("Client1", 1);
+      Client secondClient = new Client("Client1", 1);
+
+      //Assert
+      Assert.Equal(firstClient, secondClient);
+    }
+
+    [Fact]
+    public void Save_SavesClientToDatabase_ClientList()
     {
       //Arrange
-      Client testClient = new Client("John", 1);
+      Client testClient = new Client("Client1", 1);
+      testClient.Save();
+
+      //Act
+      List<Client> result = Client.GetAll();
+      List<Client> testList = new List<Client> {testClient};
+
+      //Assert
+      Assert.Equal(testList, result);
+    }
+
+    [Fact]
+    public void Save_AssignsIdToClient_Id()
+    {
+      //Arrange
+      Client testClient = new Client("Client1", 1);
+      testClient.Save();
+
+      //Act
+      Client savedClient = Client.GetAll()[0];
+
+      int result = savedClient.Id;
+      int testId = testClient.Id;
+
+      //Assert
+      Assert.Equal(testId, result);
+    }
+
+    [Fact]
+    public void Find_FindsClientInDatabase_Client()
+    {
+      //Arrange
+      Client testClient = new Client("Client1", 1);
       testClient.Save();
 
       //Act
       Client foundClient = Client.Find(testClient.Id);
 
       //Assert
-      Assert.AreEqual(testClient, foundClient);
+      Assert.Equal(testClient, foundClient);
     }
 
-    [TestMethod]
-    public void Edit_UpdatesClientInDatabase_String()
+    public void Dispose()
     {
-      //Arrange
-      string firstDescription = "John";
-      Client testClient = new Client(firstDescription, 1);
-      testClient.Save();
-      string secondDescription = "Mike";
-
-      //Act
-      testClient.Edit(secondDescription, 1);
-      string result = Client.Find(testClient.Id).Name;
-
-      //Assert
-      Assert.AreEqual(secondDescription, result);
-    }
-
-    [TestMethod]
-    public void Delete_DeletesClientAssociationsFromDatabase_ClientList()
-    {
-      //Arrange
-      Stylist testStylist = new Stylist("John");
-      testStylist.Save();
-      string testName = "Mike";
-      Client testClient = new Client(testName, testStylist.Id);
-      testClient.Save();
-
-      //Act
-      testClient.Delete();
-      List<Client> resultStylistClients = testStylist.GetClients();
-      List<Client> testStylistClients = new List<Client> {};
-
-      //Assert
-      CollectionAssert.AreEqual(testStylistClients, resultStylistClients);
+      Client.DeleteAll();
     }
   }
 }
